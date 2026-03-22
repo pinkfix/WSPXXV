@@ -1,0 +1,18 @@
+h1 VÄLKOMMEN TILL FORUMSSIDAN!
+h4 VI ÄLSKAR SPÅRVAGNAR! 
+
+form action="/hub" method="get"
+    input type="submit" value="Tillbaka till huvudmenyn!"/
+div
+    - i=0
+    - @forumen.each do |forumet|
+        div
+            h4=forumet["rubrik"]
+            a href="./forum/#{forumet["id"]}" KLICKA HÄR
+            line
+        - i+=1
+
+- if session[:logged_in]
+    form action="/createforum" method="post"
+        input type="text" placeholder="Rubrik?" name="rub"
+        input type="submit" value="Skapa nytt forum"/

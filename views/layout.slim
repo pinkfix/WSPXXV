@@ -3,9 +3,19 @@ html lang="en"
   head
     meta charset="UTF-8"/
     meta name="viewport" content="width=device-width, initial-scale=1.0"/
-    link rel="stylesheet" href="/style.css"/
-    title Todo
+    link rel="stylesheet" href="../public/style.css"/
+    title RAILED
   body 
-    header RAILED
+    header class="hdr"
+      div RAILED
+      nav
+        - if session[:logged_in]
+          form action="/logout" method="post"
+            input type="submit" value="Logga ut"/
+        - else 
+          form action="/register" method="get"
+            input type="submit" value="Skapa ett konto här"/
+          form action="/login" method="get"
+            input type="submit" value="Logga in."/
     main    
         ==yield

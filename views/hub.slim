@@ -3,8 +3,9 @@ header
     h3 The website for all
 main 
     div class="knapp"
-        a href="#" FORUM
-    div class="knapp"
-        a href="#" GAMBLING (18+)
-    div class="knapp"
-        a href="/tinder" TINDER 
+        a href="/forum" FORUM
+    -if session[:logged_in] 
+        div class="knapp"
+            a href="#" GAMBLING (18+)
+        div class="knapp"
+            a href="/tinder" TINDER 

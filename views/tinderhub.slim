@@ -1,0 +1,14 @@
+h1 VÄLKOMMEN TILL RAILED DATING!!! 
+
+form action="/hub" method="get"
+    input type="submit" value="Tillbaka till huvudmenyn!"/
+    
+- if session[:logged_in]    
+    p Väklommen #{@name}!
+    p = @id
+    - if session[:admin]
+        p Du är en Admin.
+        p = session[:admin]
+- else 
+    p Du är utloggad! För en mer personlig och interaktiv upplevelse, logga in.
+
