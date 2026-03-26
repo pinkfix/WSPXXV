@@ -18,6 +18,7 @@ def drop_tables(db)
   db.execute('DROP TABLE IF EXISTS users')
   db.execute('DROP TABLE IF EXISTS forums')
   db.execute('DROP TABLE IF EXISTS messages')
+  db.execute('DROP TABLE IF EXISTS forum1')
 end
 
 def create_tables(db)

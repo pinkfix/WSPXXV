@@ -3,42 +3,21 @@ require 'slim'
 require 'sqlite3'
 require 'sinatra/reloader'
 require 'bcrypt'
+require_relative './model.rb'
 
 enable :sessions
 
 # BEFORE-BLOCK
 
-# Definiera ett before-block som kollar om användaren är inloggad och admin
-
-
-
-# DRY-Funktioner
-
-
-
-#Helper functions
-
-before do
-  def getDB(database)
-    db = SQLite3::Database.new(database)
-    db.results_as_hash = true
-    return db
-  end
-
-  def backgroundCheck(user_id)
-    db = getDB("db/railed.db")
-    if db.execute("SELECT lvl FROM users WHERE id=?",user_id).first["lvl"] == 0
-      return false
-    else
-      return true
-    end
+before('/forum/*') do
+  if session[:logged_in]
+    session[:admin] = backgroundCheck(session[:user_id])
   end
 end
 
-
 # FUNKTIONER RELATERADE TILL ANVÄNDARSYSTEMET
 
-get('/register') do
+get('/account/register') do
   slim(:signup)
 end
 
@@ -47,35 +26,27 @@ post('/register') do
   user = params["user"]
   pwd = params["pwd"]
   pwd_confirm = params["pwd_confirm"]
-  lvl = 0
-  session[:admin] = 0
   if params["admin"]
-    lvl = 1
     session[:admin] = 1
+  else
+    session[:admin] = 0
   end
-
-  
-  result = db.execute("SELECT id FROM users WHERE username=?",user)
-
+  result = getUserInfo(user)
   if result.empty?
     if pwd == pwd_confirm
-      pwd_digest = BCrypt::Password.create(pwd)
-      session[:logged_in] = true
-      user_id = db.execute("SELECT id FROM users WHERE username=?", user)
-      session[:user_id] = user_id
-      db.execute('INSERT INTO users (username, pwd_digest, lvl) VALUES (?,?,?)',[user, pwd_digest, lvl])
+      sättUppAnvändare(user, pwd_digest, session[:admin])
       redirect('/hub')
     else
-      p "password matchar ej"
-      redirect('/register') #pwd != pwd2
+      session[:error] = "Lösenordet matchar inte!"
+      redirect('/account/register')
     end
   else
-    p "usernamn taget"
-    redirect('/register') #username redan taget
+    session[:error] = "Någon annan använder redan namnet #{user}. Pröva med ett annat."
+    redirect('/account/register')
   end
 end
 
-get('/login') do
+get('/account/login') do
   slim(:login)
 end
 
@@ -84,41 +55,35 @@ post('/login') do
   user = params["user"]
   pwd = params["pwd"]
 
-  result = db.execute("SELECT id,pwd_digest,lvl FROM users WHERE username=?",user)
+  result = getUserInfo(user)
 
   if result.empty?
-    p "Användare finnes ej"
-    redirect('/login') #Fel användarnamn
+    session[:error] = "Du har angett fel ANvändarnamn eller Lösenord!"
+    redirect('/account/login')
   end
+
   puts result
-  user_id = result.first["id"]
-  pwd_digest = result.first["pwd_digest"]
+  user_id = result["id"]
+  pwd_digest = result["pwd_digest"]
   if BCrypt::Password.new(pwd_digest) == pwd
-    p result.first["lvl"]
-    if result.first["lvl"] == 1
-      session[:admin] = true
-    else
-      session[:admin] = false
-    end
-    session[:logged_in] = true
+    p "Yo this shit TRU A1§F"
+    logIn(result["lvl"])
     session[:user_id] = user_id
     redirect('/hub')
   else
-    p "Fel lösenord"
-    redirect('/login') #Fel lösenord
+    session[:error] = "Du har angett fel Användarnamn eller Lösenord!"
+    redirect('/account/login')
   end
 end
 
 post('/logout') do
-  session[:logged_in] = false
-  session[:admin] = false
-  session[:user_id] = 0
+  resetSession()
   redirect('/hub')
 end
 
 # HUB-GETS & POSTS
 get('/') do
-  redirect('/login')
+  redirect('/account/login')
 end
 
 get('/hub') do
@@ -130,12 +95,12 @@ get('/tinder') do
   db = getDB("db/railed.db")
   @id = session[:user_id]
   p @id
-  @name =  db.execute("SELECT username FROM users WHERE id=?", @id).first["username"]
+  @name = getIdInfo(@id)["username"]
   slim(:tinderhub)
 end
 
 #Forumrelaterade Gets & Posts
-get('/forum') do
+get('/forum/hub') do
   db = getDB("db/railed.db")
   @forumen = db.execute('SELECT * FROM forums')
   slim(:forumhub)
@@ -143,18 +108,16 @@ end
 
 get('/forum/:id') do
   @id = params[:id]
-  db = getDB("db/railed.db")
-  @user_name = db.execute("SELECT username FROM users WHERE id =?", session[:user_id]).first["username"]
-  @rubbe = db.execute("SELECT rubrik FROM forums WHERE id=?",@id).first["rubrik"]
-  @chatten = db.execute("SELECT messages.id,username,message FROM messages LEFT JOIN users on messages.user = users.id WHERE forum = ?", @id)
+  @user_name = getIdInfo(session[:user_id])["username"]
+  @rubbe = getForumsFromID(@id)["rubrik"]
+  @chatten = getChatHistory(@id)
   slim(:forum)
 end
 
-post('/createforum') do
+post('/forum/create') do
   rubr = params[:rub]
-  db = getDB("db/railed.db")
-  db.execute("INSERT INTO forums (rubrik) VALUES (?)", rubr)
-  id = db.execute("SELECT id FROM forums WHERE rubrik = ?", rubr).first["id"]
+  createForum(rubr)
+  id = getForumFromRubrik(rubr)["id"]
   redirect("/forum/#{id}")
 end
 
@@ -162,16 +125,24 @@ post('/chatta/:id') do
   id = params[:id]
   mess = params[:meddelande]
   uid = session[:user_id]
-  db = getDB("db/railed.db")
-  db.execute('INSERT INTO messages (forum,user,message) VALUES (?,?,?)',[id,uid,mess])
+  insertMessage(id,uid,mess)
   redirect("/forum/#{id}")
 end
 
-post('/radera/:fid/:id') do
-  mid = params[:id]
-  p mid
-  db = getDB("db/railed.db")
-  fid = params[:fid]
-  db.execute("DELETE FROM messages WHERE id = ?",mid)
+post('/radera/:forum_id/:id') do
+  id = params[:id]
+  deleteMessage(id)
+  forum_id = params[:forum_id]
   redirect("/forum/#{fid}")
+end
+
+gets('/account/delete') do
+  @username = getIdInfo(session[:user_id])["username"]
+  slim(:accDelete)
+end
+
+post('/account/delete') do
+  eraseUser(session[:user_id])
+  resetSession()
+  redirect('/hub')
 end

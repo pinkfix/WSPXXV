@@ -1,5 +1,8 @@
 h1 SKAPA KONTO! 
 
+- if session[:error] != "W"
+    p ERROR: #{session[:error]}
+
 form action="/register" method="post" 
     input# type="text" placeholder="Username" name="user"/
     input# type="password" placeholder="Password" name="pwd"/

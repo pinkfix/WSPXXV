@@ -12,10 +12,12 @@ html lang="en"
         - if session[:logged_in]
           form action="/logout" method="post"
             input type="submit" value="Logga ut"/
+          form action="/account/delete" method="get"
+            input type="submit" value="Radera konto"
         - else 
-          form action="/register" method="get"
+          form action="/account/register" method="get"
             input type="submit" value="Skapa ett konto här"/
-          form action="/login" method="get"
+          form action="/account/login" method="get"
             input type="submit" value="Logga in."/
     main    
         ==yield

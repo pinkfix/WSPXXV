@@ -1,5 +1,8 @@
 h1 Logga in!
 
+- if session[:error] != "W"
+    p ERROR: #{session[:error]}
+
 form action="/login" method="post" 
     input# type="text" placeholder="Username" name="user"/
     input# type="password" placeholder="Password" name="pwd"/
