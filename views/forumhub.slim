@@ -3,14 +3,32 @@ h4 VI ÄLSKAR SPÅRVAGNAR!
 
 form action="/hub" method="get"
     input type="submit" value="Tillbaka till huvudmenyn!"/
+
+p +++++++++++++++++++++++++++++++++++
+
 div
-    - i=0
+    - if session[:logged_in]
+        p Favoforum:
+        - @favforumen.each do |forumet|
+            div 
+                p ----------------
+                h4=forumet["rubrik"]
+                a href="./ #{forumet['id']}" KLICKA HÄR
+                form action="/forum/avfav" method="post"
+                    input type="hidden" value="#{forumet['id']}" name="forumet_id"
+                    input type="submit" value="Avfavorsiera"/
+    p +++++++++++++++++++++++++++++++++++
+    p Ej favoforum:
     - @forumen.each do |forumet|
         div
+            p ----------------
             h4=forumet["rubrik"]
-            a href="./forum/#{forumet["id"]}" KLICKA HÄR
-            line
-        - i+=1
+            a href="./#{forumet["id"]}" KLICKA HÄR
+            -if session[:logged_in]
+                form action="/forum/fav" method="post"
+                    input type="hidden" value=forumet["id"] name="forumet_id"
+                    input type="submit" value="Favorsiera"/
+    p +++++++++++++++++++++++++++++++++++
 
 - if session[:logged_in]
     form action="/forum/create" method="post"

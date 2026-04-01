@@ -3,6 +3,7 @@ require 'slim'
 require 'sqlite3'
 require 'sinatra/reloader'
 require 'bcrypt'
+require 'time'
 require_relative './model.rb'
 
 enable :sessions
@@ -26,15 +27,18 @@ post('/register') do
   user = params["user"]
   pwd = params["pwd"]
   pwd_confirm = params["pwd_confirm"]
+
+  ddosBuffer()
+
   if params["admin"]
     session[:admin] = 1
   else
     session[:admin] = 0
   end
   result = getUserInfo(user)
-  if result.empty?
+  if result == nil
     if pwd == pwd_confirm
-      sättUppAnvändare(user, pwd_digest, session[:admin])
+      sättUppAnvändare(user, pwd, session[:admin])
       redirect('/hub')
     else
       session[:error] = "Lösenordet matchar inte!"
@@ -55,12 +59,15 @@ post('/login') do
   user = params["user"]
   pwd = params["pwd"]
 
+  ddosBuffer()
+
   result = getUserInfo(user)
 
-  if result.empty?
-    session[:error] = "Du har angett fel ANvändarnamn eller Lösenord!"
+  if result == nil
+    session[:error] = "Du har angett fel Användarnamn eller Lösenord!"
     redirect('/account/login')
   end
+
 
   puts result
   user_id = result["id"]
@@ -81,6 +88,18 @@ post('/logout') do
   redirect('/hub')
 end
 
+get('/account/delete') do
+  @username = getIdInfo(session[:user_id])["username"]
+  p @username
+  slim(:accdelete)
+end
+
+post('/accdelete') do
+  eraseUser(session[:user_id])
+  resetSession()
+  redirect('/hub')
+end
+
 # HUB-GETS & POSTS
 get('/') do
   redirect('/account/login')
@@ -94,21 +113,25 @@ end
 get('/tinder') do
   db = getDB("db/railed.db")
   @id = session[:user_id]
-  p @id
   @name = getIdInfo(@id)["username"]
   slim(:tinderhub)
 end
 
 #Forumrelaterade Gets & Posts
 get('/forum/hub') do
-  db = getDB("db/railed.db")
-  @forumen = db.execute('SELECT * FROM forums')
+  if session[:logged_in]
+    @favforumen = getForumsFav(session[:user_id])
+    @forumen = getForumsNotFav(session[:user_id])
+    
+  else
+    @forumen = getForumsAll()
+  end
   slim(:forumhub)
 end
 
 get('/forum/:id') do
   @id = params[:id]
-  @user_name = getIdInfo(session[:user_id])["username"]
+  @user_name = getIdInfo(session[:user_id])
   @rubbe = getForumsFromID(@id)["rubrik"]
   @chatten = getChatHistory(@id)
   slim(:forum)
@@ -133,16 +156,18 @@ post('/radera/:forum_id/:id') do
   id = params[:id]
   deleteMessage(id)
   forum_id = params[:forum_id]
-  redirect("/forum/#{fid}")
+  redirect("/forum/#{forum_id}")
 end
 
-gets('/account/delete') do
-  @username = getIdInfo(session[:user_id])["username"]
-  slim(:accDelete)
+post('/forum/fav') do
+  favourite(params[:forumet_id], session[:user_id])
+  redirect('/forum/hub')
 end
 
-post('/account/delete') do
-  eraseUser(session[:user_id])
-  resetSession()
-  redirect('/hub')
+post('/forum/avfav') do
+  fid = params[:forumet_id]
+  p session[:user_id]
+  p fid
+  unfavourite(fid, session[:user_id])
+  redirect('/forum/hub')
 end

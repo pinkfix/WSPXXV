@@ -6,10 +6,11 @@ h3 = @rubbe
 
 - @chatten.each do |chat|
     p <b>#{chat["username"]}:</b> #{chat["message"]}
-    -if session[:admin] == true || @user_name == chat["username"]
-        - xx = "/radera/" + @id.to_s + "/" + chat["id"].to_s
-        form action=xx method="post"
-            input type="submit" value="Radera"/
+    -if session[:logged_in] == true
+        -if session[:admin] == true || @user_name["username"] == chat["username"]
+            - xx = "/radera/" + @id.to_s + "/" + chat["id"].to_s
+            form action=xx method="post"
+                input type="submit" value="Radera"/
 
 - if session[:logged_in]
     - c = "/chatta/" 

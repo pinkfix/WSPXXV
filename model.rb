@@ -12,14 +12,14 @@ def backgroundCheck(user_id)
   return false
 end
 
-def sättUppAnvändare(username, pwd_digest, lvl) 
+def sättUppAnvändare(user, pwd, lvl)
   db = getDB("db/railed.db")
   pwd_digest = BCrypt::Password.create(pwd)
   session[:logged_in] = true
-  user_id = db.execute("SELECT id FROM users WHERE username=?", user)
+  user_id = db.execute("SELECT * FROM users").length + 1
   session[:user_id] = user_id
   session[:error] = "W"
-  db.execute('INSERT INTO users (username, pwd_digest, lvl) VALUES (?,?,?)',[username, pwd_digest,lvl])
+  db.execute('INSERT INTO users (username, pwd_digest, lvl) VALUES (?,?,?)',[user, pwd_digest,lvl])
 end
 
 def getIdInfo(id)
@@ -81,4 +81,42 @@ def eraseUser(user_id)
   db = getDB("db/railed.db")
   name = getIdInfo(user_id)["username"]
   db.execute("UPDATE users SET username='Deleted User',pwd_digest=? WHERE id=?", [name, user_id])
+end
+
+def ddosBuffer()
+  if session[:time]
+    time = Time.now
+    if time - session[:time] < 3
+      sleep(3)
+    end
+  end
+  session[:time] = Time.now
+end
+
+def getForumsFav(userid)
+  db = getDB("db/railed.db")
+  everything = db.execute('SELECT * FROM forums LEFT JOIN favoriter ON forums.id = favoriter.forum_id WHERE favoriter.user_id = ?', userid)
+  return everything
+end
+
+def getForumsNotFav(userid)
+  db = getDB("db/railed.db")
+  everything = db.execute('SELECT * FROM forums LEFT JOIN favoriter ON forums.id = favoriter.forum_id WHERE NOT favoriter.user_id = ? OR favoriter.user_id IS NULL', userid)
+  return everything
+end
+
+def getForumsAll()
+  db = getDB("db/railed.db")
+  everything = db.execute('SELECT * FROM forums LEFT JOIN favoriter ON forums.id = favoriter.forum_id')
+  return everything
+end
+
+def favourite(f_id, u_id)
+  db = getDB("db/railed.db")
+  db.execute("INSERT INTO favoriter (forum_id, user_id) VALUES (?,?)",[f_id,u_id])
+end
+
+def unfavourite(f_id, u_id)
+  db = getDB("db/railed.db")
+  db.execute("DELETE FROM favoriter WHERE forum_id=? AND user_id=?",[f_id,u_id])
 end
