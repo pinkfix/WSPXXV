@@ -1,3 +1,6 @@
+module Model
+
+#
 def getDB(database)
   db = SQLite3::Database.new(database)
   db.results_as_hash = true
@@ -10,6 +13,27 @@ def backgroundCheck(user_id)
     return true
   end
   return false
+end
+
+def error(reg_login_delete, error_message)
+  session[:error] = error_message
+  redirect('/account/#{reg_login_delete}')
+end
+
+
+def validateLength(username, password)
+  if username.length < 3
+    error("register","För kort användarnamn. Måste vara mellan 3 och 30 karaktärer")
+  elsif username.length > 30
+    error("register","För långt användarnamn. Måste vara mellan 3 och 30 karaktärer")
+  end
+  if password.to_i == password
+    error("register","Lösenord får ej bestå av endast siffror!")
+  elsif password.length < 8
+    error("register","För kort lösenord. Måste vara mellan 8 och 40 karaktärer")
+  elsif password.length > 40
+    error("register","För långt lösenord. Måste vara mellan 8 och 40 karaktärer")
+  end
 end
 
 def sättUppAnvändare(user, pwd, lvl)

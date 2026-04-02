@@ -8,6 +8,8 @@ require_relative './model.rb'
 
 enable :sessions
 
+include Model
+
 # BEFORE-BLOCK
 
 before('/forum/*') do
@@ -23,30 +25,31 @@ get('/account/register') do
 end
 
 post('/register') do
-  db = getDB("db/railed.db")
   user = params["user"]
   pwd = params["pwd"]
   pwd_confirm = params["pwd_confirm"]
 
   ddosBuffer()
 
+  validateLength(user, pwd)
+
   if params["admin"]
     session[:admin] = 1
   else
     session[:admin] = 0
   end
+
   result = getUserInfo(user)
+
   if result == nil
     if pwd == pwd_confirm
       sättUppAnvändare(user, pwd, session[:admin])
       redirect('/hub')
     else
-      session[:error] = "Lösenordet matchar inte!"
-      redirect('/account/register')
+      error("register","Lösenordet matchar inte!")
     end
   else
-    session[:error] = "Någon annan använder redan namnet #{user}. Pröva med ett annat."
-    redirect('/account/register')
+    error("register", "Någon annan använder redan namnet #{user}. Pröva med ett annat.")
   end
 end
 
@@ -64,22 +67,18 @@ post('/login') do
   result = getUserInfo(user)
 
   if result == nil
-    session[:error] = "Du har angett fel Användarnamn eller Lösenord!"
-    redirect('/account/login')
+    error("login","Du har angett fel Användarnamn eller Lösenord!")
   end
-
 
   puts result
   user_id = result["id"]
   pwd_digest = result["pwd_digest"]
   if BCrypt::Password.new(pwd_digest) == pwd
-    p "Yo this shit TRU A1§F"
     logIn(result["lvl"])
     session[:user_id] = user_id
     redirect('/hub')
   else
-    session[:error] = "Du har angett fel Användarnamn eller Lösenord!"
-    redirect('/account/login')
+    error("login","Du har angett fel Användarnamn eller Lösenord!")
   end
 end
 
@@ -95,9 +94,16 @@ get('/account/delete') do
 end
 
 post('/accdelete') do
-  eraseUser(session[:user_id])
-  resetSession()
-  redirect('/hub')
+  pwd_digest = getIdInfo(session[:user_id])["pwd_digest"]
+  pwd_confirm = params[:pwd_confirm]
+  if BCrypt::Password.new(pwd_digest) == pwd_confirm
+    eraseUser(session[:user_id])
+    resetSession()
+    redirect('/hub')
+  else
+    error("delete", "Inkorrekt lösenord!")
+    sleep(2)
+  end
 end
 
 # HUB-GETS & POSTS
