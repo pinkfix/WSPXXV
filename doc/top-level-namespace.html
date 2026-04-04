@@ -73,6 +73,11 @@
   
   
   
+  <dl>
+      <dt>Includes:</dt>
+      <dd>Model</dd>
+  </dl>
+  
   
 
   
@@ -136,7 +141,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Visar upp sidan där man kan “radera” sin användare.</p>
+</div></span>
   
 </li>
 
@@ -158,7 +165,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Visar inloggningssidan.</p>
+</div></span>
   
 </li>
 
@@ -181,7 +190,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>FUNKTIONER RELATERADE TILL ANVÄNDARSYSTEMET.</p>
+<p>Visar registreringssidan.</p>
 </div></span>
   
 </li>
@@ -204,7 +213,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Visar alla meddelanden från ett specifikt forum, samt vem som skrev dem.</p>
+</div></span>
   
 </li>
 
@@ -227,7 +238,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Forumrelaterade Gets &amp; Posts.</p>
+<p>Visar alla forum som finns i ordning från äldst till nyast, samt placerar de favoriserade över de ofavoriserade.</p>
 </div></span>
   
 </li>
@@ -273,7 +284,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>TINDERRELATERADE GETS OCH POSTS.</p>
+<p>Detta är en testsida som används i syfte att ha en sida att hindra utloggade från att nå.</p>
 </div></span>
   
 </li>
@@ -296,7 +307,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Raderar en användare, ifall hen skriver in sitt lösenord.</p>
+</div></span>
   
 </li>
 
@@ -318,7 +331,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Skriver ett meddelande i ett forum, dvs sparar till messages.</p>
+</div></span>
   
 </li>
 
@@ -340,7 +355,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Avfavoriserar ett forum för en viss användare.</p>
+</div></span>
   
 </li>
 
@@ -362,7 +379,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Skapar ett forum som sparas i databasen, och redirectar till den.</p>
+</div></span>
   
 </li>
 
@@ -384,7 +403,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Favoriserar ett forum för en viss användare.</p>
+</div></span>
   
 </li>
 
@@ -406,7 +427,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Loggar in en användare, ifall alla värden var korrekta.</p>
+</div></span>
   
 </li>
 
@@ -428,7 +451,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Loggar ut en användare.</p>
+</div></span>
   
 </li>
 
@@ -450,7 +475,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Raderar ett meddelande i ett forum, dvs tar bort från messages.</p>
+</div></span>
   
 </li>
 
@@ -472,7 +499,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Registrerar en användare, ifall alla värden var korrekt formatterade.</p>
+</div></span>
   
 </li>
 
@@ -481,6 +510,7 @@
   
 
 
+  
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
@@ -514,12 +544,12 @@
       <pre class="lines">
 
 
-108
-109
-110</pre>
+147
+148
+149</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 108</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 147</span>
 
 <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_redirect'>redirect</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/account/login</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -538,24 +568,62 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Visar upp sidan där man kan “radera” sin användare.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>:user_id</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Användarens ID (tas från session)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>Model#tedIdInfo</li>
+    
+  </ul>
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-88
-89
-90
-91
-92</pre>
+121
+122
+123
+124</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 88</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 121</span>
 
 <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/account/delete</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
   <span class='ivar'>@username</span> <span class='op'>=</span> <span class='id identifier rubyid_getIdInfo'>getIdInfo</span><span class='lparen'>(</span><span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:user_id</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>username</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
-  <span class='id identifier rubyid_p'>p</span> <span class='ivar'>@username</span>
   <span class='id identifier rubyid_slim'>slim</span><span class='lparen'>(</span><span class='symbol'>:accdelete</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -572,18 +640,31 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Visar inloggningssidan</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-54
-55
-56</pre>
+74
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 74</span>
 
 <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/account/login</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_slim'>slim</span><span class='lparen'>(</span><span class='symbol'>:login</span><span class='rparen'>)</span>
@@ -605,7 +686,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>FUNKTIONER RELATERADE TILL ANVÄNDARSYSTEMET</p>
+<p>Visar registreringssidan.</p>
 
 
   </div>
@@ -621,12 +702,12 @@
       <pre class="lines">
 
 
-21
-22
-23</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 30</span>
 
 <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/account/register</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_slim'>slim</span><span class='lparen'>(</span><span class='symbol'>:signup</span><span class='rparen'>)</span>
@@ -645,22 +726,82 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Visar alla meddelanden från ett specifikt forum, samt vem som skrev dem.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>:id</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Forumets ID</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>:user_id</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Användarens ID, från sessions (if applicable)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>Model#getIdInfo</li>
+    
+      <li>Model#getForumsFromId</li>
+    
+      <li>Model#getChatHistory</li>
+    
+  </ul>
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-136
-137
-138
-139
-140
-141
-142</pre>
+192
+193
+194
+195
+196
+197
+198</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 136</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 192</span>
 
 <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/forum/:id</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
   <span class='ivar'>@id</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span>
@@ -686,13 +827,44 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Forumrelaterade Gets &amp; Posts</p>
+<p>Visar alla forum som finns i ordning från äldst till nyast, samt placerar de favoriserade över de ofavoriserade.</p>
 
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>:logged_in</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Om användaren är inloggad eller ej</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>Model#getForumsFav</li>
+    
+      <li>Model#getForumsNotFav</li>
+    
+      <li>Model#getForumsAll</li>
+    
+  </ul>
 
 
 
@@ -702,19 +874,19 @@
       <pre class="lines">
 
 
-125
-126
-127
-128
-129
-130
-131
-132
-133
-134</pre>
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 125</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 174</span>
 
 <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/forum/hub</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:logged_in</span><span class='rbracket'>]</span>
@@ -746,12 +918,12 @@
       <pre class="lines">
 
 
-112
-113
-114</pre>
+151
+152
+153</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 112</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 151</span>
 
 <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/hub</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_slim'>slim</span><span class='lparen'>(</span><span class='symbol'>:hub</span><span class='rparen'>)</span>
@@ -773,7 +945,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>TINDERRELATERADE GETS OCH POSTS</p>
+<p>Detta är en testsida som används i syfte att ha en sida att hindra utloggade från att nå.</p>
 
 
   </div>
@@ -789,15 +961,15 @@
       <pre class="lines">
 
 
-117
-118
-119
-120
-121
-122</pre>
+159
+160
+161
+162
+163
+164</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 117</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 159</span>
 
 <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/tinder</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_db'>db</span> <span class='op'>=</span> <span class='id identifier rubyid_getDB'>getDB</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>db/railed.db</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -819,27 +991,87 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Raderar en användare, ifall hen skriver in sitt lösenord.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>:pwd_confirm</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Lösenordet som användaren skriver in för att konfirmera.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>:user_id</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Användarens ID (tas från session)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>Model#getIdInfo</li>
+    
+      <li>Model#eraseUser</li>
+    
+      <li>Model#resetSession</li>
+    
+  </ul>
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-94
-95
-96
-97
-98
-99
-100
-101
-102
-103
-104
-105</pre>
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 94</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 133</span>
 
 <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/accdelete</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_pwd_digest'>pwd_digest</span> <span class='op'>=</span> <span class='id identifier rubyid_getIdInfo'>getIdInfo</span><span class='lparen'>(</span><span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:user_id</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pwd_digest</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
@@ -850,7 +1082,7 @@
     <span class='id identifier rubyid_redirect'>redirect</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/hub</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='kw'>else</span>
     <span class='id identifier rubyid_error'>error</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>delete</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Inkorrekt lösenord!</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_sleep'>sleep</span><span class='lparen'>(</span><span class='int'>2</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_sleep'>sleep</span><span class='lparen'>(</span><span class='int'>5</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -867,22 +1099,94 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Skriver ett meddelande i ett forum, dvs sparar till messages.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>:id</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Forumets ID</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>:meddelande</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Meddelandet</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>:user_id</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Användarens ID, från sessions.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>Model#insertMessages</li>
+    
+  </ul>
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-151
-152
-153
-154
-155
-156
-157</pre>
+218
+219
+220
+221
+222
+223
+224</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 151</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 218</span>
 
 <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/chatta/:id</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span>
@@ -905,27 +1209,79 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Avfavoriserar ett forum för en viss användare.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>:forumet_id</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Forumets ID</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>:user_id</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Användarens ID, från session</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>Model#unfavourite</li>
+    
+  </ul>
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-171
-172
-173
-174
-175
-176
-177</pre>
+253
+254
+255
+256
+257</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 171</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 253</span>
 
 <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/forum/avfav</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_fid'>fid</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:forumet_id</span><span class='rbracket'>]</span>
-  <span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:user_id</span><span class='rbracket'>]</span>
-  <span class='id identifier rubyid_p'>p</span> <span class='id identifier rubyid_fid'>fid</span>
   <span class='id identifier rubyid_unfavourite'>unfavourite</span><span class='lparen'>(</span><span class='id identifier rubyid_fid'>fid</span><span class='comma'>,</span> <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:user_id</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_redirect'>redirect</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/forum/hub</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -943,21 +1299,63 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Skapar ett forum som sparas i databasen, och redirectar till den.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>:rub</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Forumets namn</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>Model#createForum</li>
+    
+      <li>Model#getForumFromRubrik</li>
+    
+  </ul>
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-144
-145
-146
-147
-148
-149</pre>
+205
+206
+207
+208
+209
+210</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 144</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 205</span>
 
 <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/forum/create</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_rubr'>rubr</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:rub</span><span class='rbracket'>]</span>
@@ -979,19 +1377,75 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Favoriserar ett forum för en viss användare.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>:forumet_id</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Forumets ID</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>:user_id</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Användarens ID, från session</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>Model#favourite</li>
+    
+  </ul>
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-166
-167
-168
-169</pre>
+243
+244
+245
+246</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 166</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 243</span>
 
 <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/forum/fav</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_favourite'>favourite</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:forumet_id</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:user_id</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -1011,42 +1465,100 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Loggar in en användare, ifall alla värden var korrekta.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>&quot;user&quot;</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Användarnamn</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>&quot;pwd&quot;</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Lösenordet</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>Model#ddosBuffer</li>
+    
+      <li>Model#getUserInfo</li>
+    
+      <li>Model#logIn</li>
+    
+  </ul>
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-58
-59
-60
-61
-62
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72
-73
-74
-75
-76
-77
-78
-79
-80
-81</pre>
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 85</span>
 
 <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/login</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_db'>db</span> <span class='op'>=</span> <span class='id identifier rubyid_getDB'>getDB</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>db/railed.db</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_user'>user</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_pwd'>pwd</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pwd</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
 
@@ -1083,19 +1595,39 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Loggar ut en användare.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>Model#resetSession</li>
+    
+  </ul>
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-83
-84
-85
-86</pre>
+112
+113
+114
+115</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 112</span>
 
 <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/logout</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_resetSession'>resetSession</span><span class='lparen'>(</span><span class='rparen'>)</span>
@@ -1115,21 +1647,77 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Raderar ett meddelande i ett forum, dvs tar bort från messages.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>:forum_id</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Forumets ID</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>:id</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Meddelandets ID</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>Model#deleteMessage</li>
+    
+  </ul>
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-159
-160
-161
-162
-163
-164</pre>
+231
+232
+233
+234
+235
+236</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 159</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 231</span>
 
 <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/radera/:forum_id/:id</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span>
@@ -1151,30 +1739,90 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Registrerar en användare, ifall alla värden var korrekt formatterade</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>&quot;user&quot;</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Användarnamn</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>&quot;pwd&quot;</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Lösenordet</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>&quot;pwd_confirm&quot;</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Lösenordet, igen</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>Model#ddosBuffer</li>
+    
+      <li>Model#validateLength</li>
+    
+      <li>Model#getUserInfo</li>
+    
+      <li>Model#sättUppAnvändare</li>
+    
+  </ul>
+
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
 43
 44
 45
@@ -1184,10 +1832,28 @@
 49
 50
 51
-52</pre>
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'app.rb', line 43</span>
 
 <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/register</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
   <span class='id identifier rubyid_user'>user</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
@@ -1227,7 +1893,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Apr  1 16:25:31 2026 by
+  Generated on Sat Apr  4 15:15:16 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.38 (ruby-3.3.5).
 </div>
