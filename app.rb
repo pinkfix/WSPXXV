@@ -139,8 +139,9 @@ post('/accdelete') do
     resetSession()
     redirect('/hub')
   else
-    err("delete", "Inkorrekt lösenord!")
+    session[:error] = "Inkorrekt lösenord!"
     sleep(5)
+    redirect('/account/delete')
   end
 end
 
@@ -206,8 +207,7 @@ end
 post('/forum/create') do
   rubr = params[:rub]
   createForum(rubr)
-  id = getForumFromRubrik(rubr)["id"]
-  redirect("/forum/#{id}")
+  redirect("/forum/hub")
 end
 
 #Skriver ett meddelande i ett forum, dvs sparar till messages.
