@@ -212,7 +212,7 @@ module Model
   #   :user_id [Integer] Användarens ID (Från relationstabellen)
   def getForumsFav(userid)
     db = getDB("db/railed.db")
-    everything = db.execute('SELECT * FROM forums LEFT JOIN favoriter ON forums.id = favoriter.forum_id WHERE favoriter.user_id = ?', userid)
+    everything = db.execute('SELECT * FROM forums INNER JOIN favoriter ON forums.id = favoriter.forum_id WHERE favoriter.user_id = ?', userid)
     p everything
     return everything
   end
@@ -228,7 +228,7 @@ module Model
   #   :user_id [Integer] Användarens ID (Från relationstabellen)
   def getForumsNotFav(userid)
     db = getDB("db/railed.db")
-    everything = db.execute('SELECT * FROM forums LEFT JOIN favoriter ON forums.id = favoriter.forum_id WHERE NOT favoriter.user_id = ? OR favoriter.user_id IS NULL', userid)
+    everything = db.execute('SELECT * FROM forums WHERE rubrik NOT IN (SELECT rubrik FROM forums INNER JOIN favoriter ON forums.id = favoriter.forum_id WHERE favoriter.user_id = ?)', userid)
     return everything
   end
 
@@ -241,7 +241,7 @@ module Model
   #   :user_id [Integer] Användarens ID (Från relationstabellen)
   def getForumsAll()
     db = getDB("db/railed.db")
-    everything = db.execute('SELECT * FROM forums LEFT JOIN favoriter ON forums.id = favoriter.forum_id')
+    everything = db.execute('SELECT * FROM forums')
     return everything
   end
 

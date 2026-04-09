@@ -8,7 +8,6 @@ p +++++++++++++++++++++++++++++++++++
 
 div
     - if session[:logged_in]
-        p Favoforum:
         - @favforumen.each do |forumet|
             div 
                 p ----------------
@@ -18,7 +17,8 @@ div
                     input type="hidden" value="#{forumet['id']}" name="forumet_id"
                     input type="submit" value="Avfavorsiera"/
     p +++++++++++++++++++++++++++++++++++
-    p Ej favoforum:
+    - if session[:logged_in]
+        p Ej favoforum:
     - @forumen.each do |forumet|
         div
             p ----------------
