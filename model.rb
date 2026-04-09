@@ -26,13 +26,13 @@ module Model
 
   # DRY-function saving the reason for error and then throwing the user back to the appropriate site.
   #
-  # @param [String] reg_login_delete Which of the error sites to redirect to.
+  # @param [String] rld Which of the error sites to redirect to.
   # @param [String] error_message The error message
   #
   # @return [String] error message and redirect to appropriate site.
-  def error(reg_login_delete, error_message)
+  def err(rld, error_message)
     session[:error] = error_message
-    redirect('/account/#{reg_login_delete}')
+    redirect("/account/#{rld}")
   end
 
   # validates the length of the usernamne and password(and if the password is only numbers) when registering.
@@ -41,16 +41,16 @@ module Model
   # @param [String] password The Password
   def validateLength(username, password)
     if username.length < 3
-      error("register","För kort användarnamn. Måste vara mellan 3 och 30 karaktärer")
+      err("register","För kort användarnamn. Måste vara mellan 3 och 30 karaktärer")
     elsif username.length > 30
-      error("register","För långt användarnamn. Måste vara mellan 3 och 30 karaktärer")
+      err("register","För långt användarnamn. Måste vara mellan 3 och 30 karaktärer")
     end
     if password.to_i == password
-      error("register","Lösenord får ej bestå av endast siffror!")
+      err("register","Lösenord får ej bestå av endast siffror!")
     elsif password.length < 8
-      error("register","För kort lösenord. Måste vara mellan 8 och 40 karaktärer")
+      err("register","För kort lösenord. Måste vara mellan 8 och 40 karaktärer")
     elsif password.length > 40
-      error("register","För långt lösenord. Måste vara mellan 8 och 40 karaktärer")
+      err("register","För långt lösenord. Måste vara mellan 8 och 40 karaktärer")
     end
   end
 

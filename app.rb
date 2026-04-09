@@ -62,10 +62,10 @@ post('/register') do
       sättUppAnvändare(user, pwd, session[:admin])
       redirect('/hub')
     else
-      error("register","Lösenordet matchar inte!")
+      err("register","Lösenordet matchar inte!")
     end
   else
-    error("register", "Någon annan använder redan namnet #{user}. Pröva med ett annat.")
+    err("register", "Någon annan använder redan namnet #{user}. Pröva med ett annat.")
   end
 end
 
@@ -91,7 +91,7 @@ post('/login') do
   result = getUserInfo(user)
 
   if result == nil
-    error("login","Du har angett fel Användarnamn eller Lösenord!")
+    err("login","Du har angett fel Användarnamn eller Lösenord!")
   end
 
   puts result
@@ -102,7 +102,8 @@ post('/login') do
     session[:user_id] = user_id
     redirect('/hub')
   else
-    error("login","Du har angett fel Användarnamn eller Lösenord!")
+    p "Du har angett fel Användarnamn eller Lösenord!"
+    err("login","Du har angett fel Användarnamn eller Lösenord!")
   end
 end
 
@@ -138,7 +139,7 @@ post('/accdelete') do
     resetSession()
     redirect('/hub')
   else
-    error("delete", "Inkorrekt lösenord!")
+    err("delete", "Inkorrekt lösenord!")
     sleep(5)
   end
 end
