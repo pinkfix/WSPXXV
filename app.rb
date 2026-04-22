@@ -23,10 +23,6 @@ before('/forum/*') do
   end
 end
 
-before('/account/delete') do
-
-end
-
 # FUNKTIONER RELATERADE TILL ANVÄNDARSYSTEMET
 
 # Visar registreringssidan.
@@ -45,6 +41,7 @@ end
 # @see Model#getUserInfo
 # @see Model#sättUppAnvändare
 post('/register') do
+  postDefend()
   user = params["user"]
   pwd = params["pwd"]
   pwd_confirm = params["pwd_confirm"]
@@ -87,6 +84,7 @@ end
 # @see Model#getUserInfo
 # @see Model#logIn
 post('/login') do
+  postDefend()
   user = params["user"]
   pwd = params["pwd"]
 
@@ -98,23 +96,22 @@ post('/login') do
     err("login","Du har angett fel Användarnamn eller Lösenord!")
   end
 
-  puts result
   user_id = result["id"]
   pwd_digest = result["pwd_digest"]
-  if BCrypt::Password.new(pwd_digest) == pwd
+  if passwordCheck(pwd_digest, pwd)
     logIn(result["lvl"])
     session[:user_id] = user_id
-    redirect('/lobby')
   else
-    p "Du har angett fel Användarnamn eller Lösenord!"
     err("login","Du har angett fel Användarnamn eller Lösenord!")
   end
+  redirect('/lobby')
 end
 
 # Loggar ut en användare.
 #
 # @see Model#resetSession
 post('/logout') do
+  postDefend()
   resetSession()
   redirect('/lobby')
 end
@@ -136,9 +133,10 @@ end
 # @see Model#eraseUser
 # @see Model#resetSession
 post('/account/delete') do
+  postDefend()
   pwd_digest = getIdInfo(session[:user_id])["pwd_digest"]
   pwd_confirm = params[:pwd_confirm]
-  if BCrypt::Password.new(pwd_digest) == pwd_confirm
+  if passwordCheck(pwd_digest, pwd_confirm)
     eraseUser(session[:user_id])
     resetSession()
     redirect('/lobby')
@@ -212,6 +210,7 @@ end
 # @see Model#createForum
 # @see Model#getForumFromRubrik
 post('/forum/create') do
+  postDefend()
   rubr = params[:rub]
   createForum(rubr)
   redirect("/forum/hub")
@@ -224,6 +223,7 @@ end
 # @param [Integer] :user_id Användarens ID, från sessions.
 # @see Model#insertMessages
 post('/chatta/:id') do
+  postDefend()
   id = params[:id]
   mess = params[:meddelande]
   uid = session[:user_id]
@@ -237,6 +237,7 @@ end
 # @param [Integer] :id Meddelandets ID
 # @see Model#deleteMessage
 post('/radera/:forum_id/:id') do
+  postDefend()
   id = params[:id]
   deleteMessage(id)
   forum_id = params[:forum_id]
@@ -249,6 +250,7 @@ end
 # @param [Integer] :user_id Användarens ID, från session
 # @see Model#favourite
 post('/forum/fav') do
+  postDefend()
   favourite(params[:forumet_id], session[:user_id])
   redirect('/forum/hub')
 end
@@ -259,6 +261,7 @@ end
 # @param [Integer] :user_id Användarens ID, från session
 # @see Model#unfavourite
 post('/forum/avfav') do
+  postDefend()
   fid = params[:forumet_id]
   unfavourite(fid, session[:user_id])
   redirect('/forum/hub')

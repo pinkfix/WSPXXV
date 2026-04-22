@@ -97,6 +97,13 @@ module Model
     return db.execute("SELECT * FROM users WHERE username=?",user).first
   end
 
+  def passwordCheck(pwd_digest, pwd)
+    if BCrypt::Password.new(pwd_digest) == pwd
+      return true
+    end
+    return false
+  end
+
   # Sätter session-variablerna :admin och :logged_in efter en lyckad inloggning.
   #
   # @param [Boolean] admin Ifall personen är admin
@@ -261,5 +268,12 @@ module Model
   def unfavourite(f_id, u_id)
     db = getDB("db/railed.db")
     db.execute("DELETE FROM favoriter WHERE forum_id=? AND user_id=?",[f_id,u_id])
+  end
+
+  # Ser till så att alla post-routes (som kräver en inloggad person) inte går att kringgå mha tex postman.
+  def postDefend()
+    if !session[:logged_in]
+      redirect('not_found')
+    end
   end
 end
