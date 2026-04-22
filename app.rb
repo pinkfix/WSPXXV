@@ -23,6 +23,10 @@ before('/forum/*') do
   end
 end
 
+before('/account/delete') do
+
+end
+
 # FUNKTIONER RELATERADE TILL ANVÄNDARSYSTEMET
 
 # Visar registreringssidan.
@@ -60,7 +64,7 @@ post('/register') do
   if result == nil
     if pwd == pwd_confirm
       sättUppAnvändare(user, pwd, session[:admin])
-      redirect('/hub')
+      redirect('/lobby')
     else
       err("register","Lösenordet matchar inte!")
     end
@@ -100,7 +104,7 @@ post('/login') do
   if BCrypt::Password.new(pwd_digest) == pwd
     logIn(result["lvl"])
     session[:user_id] = user_id
-    redirect('/hub')
+    redirect('/lobby')
   else
     p "Du har angett fel Användarnamn eller Lösenord!"
     err("login","Du har angett fel Användarnamn eller Lösenord!")
@@ -112,7 +116,7 @@ end
 # @see Model#resetSession
 post('/logout') do
   resetSession()
-  redirect('/hub')
+  redirect('/lobby')
 end
 
 # Visar upp sidan där man kan "radera" sin användare.
@@ -121,7 +125,7 @@ end
 # @see Model#tedIdInfo
 get('/account/delete') do
   @username = getIdInfo(session[:user_id])["username"]
-  slim(:accdelete)
+  slim(:account_delete)
 end
 
 # Raderar en användare, ifall hen skriver in sitt lösenord.
@@ -131,13 +135,13 @@ end
 # @see Model#getIdInfo
 # @see Model#eraseUser
 # @see Model#resetSession
-post('/accdelete') do
+post('/account/delete') do
   pwd_digest = getIdInfo(session[:user_id])["pwd_digest"]
   pwd_confirm = params[:pwd_confirm]
   if BCrypt::Password.new(pwd_digest) == pwd_confirm
     eraseUser(session[:user_id])
     resetSession()
-    redirect('/hub')
+    redirect('/lobby')
   else
     session[:error] = "Inkorrekt lösenord!"
     sleep(5)
@@ -150,8 +154,8 @@ get('/') do
   redirect('/account/login')
 end
 
-get('/hub') do
-  slim(:hub)
+get('/lobby') do
+  slim(:railed_lobby)
 end
 
 #TINDERRELATERADE GETS OCH POSTS
@@ -159,10 +163,13 @@ end
 # Detta är en testsida som används i syfte att ha en sida att hindra utloggade från att nå.
 #
 get('/tinder') do
-  db = getDB("db/railed.db")
-  @id = session[:user_id]
-  @name = getIdInfo(@id)["username"]
-  slim(:tinderhub)
+  if session[:logged_in]
+    @id = session[:user_id]
+    @name = getIdInfo(@id)["username"]
+  else
+    redirect('not-found')
+  end
+  slim(:test)
 end
 
 #Forumrelaterade Gets & Posts
@@ -181,7 +188,7 @@ get('/forum/hub') do
   else
     @forumen = getForumsAll()
   end
-  slim(:forumhub)
+  slim(:forum_all)
 end
 
 # Visar alla meddelanden från ett specifikt forum, samt vem som skrev dem.
@@ -196,7 +203,7 @@ get('/forum/:id') do
   @user_name = getIdInfo(session[:user_id])
   @rubbe = getForumsFromID(@id)["rubrik"]
   @chatten = getChatHistory(@id)
-  slim(:forum)
+  slim(:forum_distinct)
 end
 
 # Skapar ett forum som sparas i databasen, och redirectar till den.
@@ -255,4 +262,8 @@ post('/forum/avfav') do
   fid = params[:forumet_id]
   unfavourite(fid, session[:user_id])
   redirect('/forum/hub')
+end
+
+not_found do
+  slim(:error)
 end

@@ -4,7 +4,7 @@ h3 #{@username} kommer att raderas!
 p alla dina meddelanden kommer att anonymiseras, men inte försvinna. Admin kan fortfarane se vem som skrev det!
 p vill du fortsätta?
 
-form action="/accdelete" method="post"
+form action="/account/delete" method="post"
     input type="text" placeholder="Skriv in ditt lösenord!" name="pwd_confirm"
     input type="submit" value="RADERA MITT KONTO."/
 p
@@ -13,5 +13,5 @@ p
 p 
 p 
 
-form action="/hub" method="get"
+form action="/lobby" method="get"
     input type="submit" value="Jag vill inte genomföra detta"/

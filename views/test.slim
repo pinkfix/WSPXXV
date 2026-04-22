@@ -1,0 +1,11 @@
+h1 VÄLKOMMEN TILL RAILED DATING!!! 
+
+form action="/lobby" method="get"
+    input type="submit" value="Tillbaka till huvudmenyn!"/
+    
+p Väklommen #{@name}!
+- if session[:admin]
+    p Du är en Admin.
+- else 
+    p Du är inloggad!
+
